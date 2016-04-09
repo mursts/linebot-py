@@ -35,7 +35,7 @@ def callback():
     endpoint = 'https://trialbot-api.line.me/v1/events'
 
     for result in results['result']:
-        payload = {'to': result['from'],
+        payload = {'to': [result['from']],
                    'toChannel': CHANNEL,
                    'eventType': EVENT_TYPE,
                    'content': result['content']}
@@ -45,7 +45,6 @@ def callback():
         logging.debug(r.status_code)
         logging.debug(r.text)
         r.raise_for_status()
-
 
     return 'Hi linebot'
 
