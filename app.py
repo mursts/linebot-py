@@ -2,8 +2,7 @@ import json
 import logging
 import requests
 import os
-from flask import Flask
-from flask import request
+from flask import Flask, request
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -26,7 +25,7 @@ EVENT_TYPE = '138311608800106203'
 
 @app.route('/bot/callback', methods=['POST'])
 def callback():
-    results = json.loads(request.data)['result']
+    results = request.json
 
     headers = {'Content-Type': 'application/json; charset=UTF-8',
                'X-Line-ChannelID': channel_id,
@@ -35,7 +34,7 @@ def callback():
 
     endpoint = 'https://trialbot-api.line.me/v1/events'
 
-    for result in results:
+    for result in results['result']:
         payload = {'to': result['from'],
                    'toChannel': CHANNEL,
                    'eventType': EVENT_TYPE,
