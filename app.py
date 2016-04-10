@@ -32,6 +32,8 @@ def callback():
                'X-Line-ChannelSecret': channel_secret,
                'X-Line-Trusted-User-With-ACL': mid}
 
+    proxies = {'https': os.environ['FIXIE_URL']}
+
     endpoint = 'https://trialbot-api.line.me/v1/events'
 
     for result in results['result']:
@@ -41,7 +43,7 @@ def callback():
                    'content': result['content']}
 
         r = requests.post(endpoint, data=json.dumps(payload),
-                          headers=headers)
+                          headers=headers, proxies=proxies)
         logging.debug(r.status_code)
         logging.debug(r.text)
         r.raise_for_status()
