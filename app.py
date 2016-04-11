@@ -53,11 +53,7 @@ def callback():
         payload = {'to': [result['content']['from']],
                    'toChannel': CHANNEL,
                    'eventType': EVENT_TYPE,
-                   'content': {
-                       'contentType': 1,
-                       'toType': 1,
-                       'text': "Hello"
-                   }}
+                   'content': result['content']}
 
         r = requests.post(endpoint, data=json.dumps(payload),
                           headers=headers, proxies=proxies)
