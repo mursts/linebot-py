@@ -39,7 +39,7 @@ def callback():
     endpoint = 'https://trialbot-api.line.me/v1/events'
 
     for result in results['result']:
-        payload = {'to': [result['from']],
+        payload = {'to': [result['content']['from']],
                    'toChannel': CHANNEL,
                    'eventType': EVENT_TYPE,
                    'content': {
