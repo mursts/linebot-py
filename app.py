@@ -1,7 +1,10 @@
+import base64
 import json
 import logging
 import requests
 import os
+import hmac
+import hashlib
 from flask import Flask, request
 
 app = Flask(__name__)
@@ -28,6 +31,13 @@ def callback():
     results = request.json
 
     logging.debug(results)
+
+    channel_signature = request.headers['X-LINE-CHANNELSIGNATURE']
+    signature = hmac.new(channel_secret, request.stream.read(), hashlib.sha256).hexdigest()
+
+    logging.debug(channel_signature)
+    logging.debug(signature)
+    logging.debug(base64.b64encode(signature))
 
     headers = {'Content-Type': 'application/json; charset=UTF-8',
                'X-Line-ChannelID': channel_id,
