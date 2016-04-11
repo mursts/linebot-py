@@ -27,6 +27,8 @@ EVENT_TYPE = '138311608800106203'
 def callback():
     results = request.json
 
+    logging.debug(results)
+
     headers = {'Content-Type': 'application/json; charset=UTF-8',
                'X-Line-ChannelID': channel_id,
                'X-Line-ChannelSecret': channel_secret,
