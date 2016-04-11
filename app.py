@@ -33,7 +33,7 @@ def callback():
     logging.debug(results)
 
     channel_signature = request.headers['X-LINE-CHANNELSIGNATURE']
-    hash = hmac.new(channel_secret.encode('utf-8'), request.stream.read(), hashlib.sha256).hexdigest()
+    hash = hmac.new(channel_secret.encode('utf-8'), request.data, hashlib.sha256).hexdigest()
 
     logging.debug(channel_signature)
     logging.debug(hash)
