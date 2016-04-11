@@ -31,13 +31,14 @@ def callback():
     results = request.json
 
     logging.debug(results)
+    logging.debug(request.data)
 
     channel_signature = request.headers['X-LINE-CHANNELSIGNATURE']
     hash = hmac.new(channel_secret.encode('utf-8'), request.data, hashlib.sha256).digest()
 
     logging.debug(channel_signature)
     logging.debug(hash)
-    logging.debug(base64.b64encode(hash.encode('utf-8')))
+    logging.debug(base64.b64encode(hash))
 
     headers = {'Content-Type': 'application/json; charset=UTF-8',
                'X-Line-ChannelID': channel_id,
